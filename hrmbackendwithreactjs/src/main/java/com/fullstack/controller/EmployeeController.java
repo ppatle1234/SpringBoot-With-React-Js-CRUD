@@ -2,6 +2,7 @@ package com.fullstack.controller;
 
 import com.fullstack.model.Employee;
 import com.fullstack.service.IEmployeeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 
 @RestController
 @RequestMapping("/employees")
 @RequiredArgsConstructor
 @Slf4j
+@SecurityRequirement(name = "Bearer Auth")
 public class EmployeeController {
 
     private final IEmployeeService employeeService;
