@@ -1,37 +1,56 @@
-import axios from 'axios'
+import api from '../api/axiosConfig'
 import { React, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 export const ShowEmployee = () => {
 
-    const [employees, setEmployees] = useState([])
+    const [employees, setEmployees] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        loadEmployees()
-    },[])
+        if(!localStorage.getItem("token")){
+           navigate("/signin");
+        }
+        loadEmployees();
+    }, []);
+
 
     const loadEmployees = async() => {
 
-        const result = await axios.get("http://localhost:8080/employees/findall")
+        const result = await api.get("/employees/findall");
 
-        setEmployees(result.data)
-    }
+        setEmployees(result.data);
+        
+    };
 
     const deleteEmployees = async(empId) => {
 
-        await axios.delete(`http://localhost:8080/employees/deletebyid/${empId}`)
+        await api.delete(`/employees/deletebyid/${empId}`);
 
         loadEmployees()
-    }
+    };
+   
+     // 🔹 Sign Out Function
+    const handleSignOut = () => {
+   
+        if (window.confirm("Are you sure you want to sign out?")) {
+        localStorage.removeItem("token");           // remove JWT
+        navigate("/");                              // redirect to signup
+       }
 
+    };
 
     return(
 
         <div className='container'>
             <div className='row'>
                 
-                <Link to={`/addemployee`} className='btn btn-info'>Add Employee</Link>
+                <Link to={`/addemployee`} className='btn btn-info'>Add Employee</Link>  
+              <button onClick={handleSignOut} className='btn btn-warning'>Sign Out</button>
+            
+                
 
                <table className='table table-striped'>
                     <thead>
@@ -57,7 +76,7 @@ export const ShowEmployee = () => {
                                     <td>{emp.empSalary}</td>
                                     <td>{emp.empDOB}</td>
                                     <td>{emp.empEmailId}</td>
-                                    <td>{emp.empPassword}</td>
+                                    <td>{"*".repeat(emp.empPassword.length)}</td>
 
                                     <td>
                                         <Link to={`/edit/${emp.empId}`} className='btn btn-success'>Edit</Link>&nbsp; &nbsp; 

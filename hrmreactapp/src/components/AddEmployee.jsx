@@ -1,7 +1,7 @@
 import { React } from 'react'
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../api/axiosConfig';
 
 export const AddEmployee = () => {
 
@@ -23,13 +23,17 @@ export const AddEmployee = () => {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault();
-        await axios.post("http://localhost:8080/employees/save", employee)
-
-        console.log(employee);
-
-        navigate('/')
+    e.preventDefault();
+    try {
+        const response = await api.post("/employees/save", employee);
+        console.log("Employee Added:", response.data);
+        alert("Employee added successfully!");
+        navigate('/employees'); // navigate to the show all employees page
+    } catch (error) {
+        console.error("Error adding employee:", error);
+        alert("Failed to add employee!");
     }
+};
 
 
     return(
@@ -51,7 +55,8 @@ export const AddEmployee = () => {
                    </div>
 
                    <div className='mb-3'>
-                      DOB<input type='text' name='empDOB' value={empDOB} onChange={(e) => onInputChange(e)}/>
+                   <label htmlFor='empDOB'>DOB</label><br />
+                   <input type='date' id='empDOB' name='empDOB' value={empDOB} onChange={(e) => onInputChange(e)} className='form-control'/>
                    </div>
 
                    <div className='mb-3'>
@@ -59,7 +64,7 @@ export const AddEmployee = () => {
                    </div>
 
                    <div className='mb-3'>
-                      Password<input type='text' name='empPassword' value={empPassword} onChange={(e) => onInputChange(e)}/>
+                      Password<input  type='text' name='empPassword' value={empPassword} onChange={(e) => onInputChange(e)}/>
                    </div>
 
                    <button type='submit' className='btn btn-success'>Add Employee</button>

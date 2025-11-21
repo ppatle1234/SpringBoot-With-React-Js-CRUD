@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react'
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api/axiosConfig';
 
 export const EditEmployee = () => {
 
@@ -18,11 +18,13 @@ export const EditEmployee = () => {
         empPassword:""
     })
 
-    useEffect(() => {
-        loadEmployee()
-    },[])
-
     const {empName, empAddress, empSalary, empDOB, empEmailId, empPassword} = employee;
+
+    
+    useEffect(() => {
+        loadEmployee();
+    },[empId])
+
 
     const onInputChange = (e) => {
         setEmployee({...employee, [e.target.name]: e.target.value})
@@ -30,16 +32,28 @@ export const EditEmployee = () => {
 
     const onSubmit = async(e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/employees/update/${empId}`, employee)
 
-        navigate('/')
+      try {
+      await api.put(`/employees/update/${empId}`, employee);
+      alert("Employee updated successfully!");
+      navigate("/employees");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update employee!");
+    }
     }
 
-    const loadEmployee = async() => {
-        const result = await axios.get(`http://localhost:8080/employees/findbyid/${empId}`)
+    const loadEmployee = async () => {
+      try {
+        const result = await api.get(`/employees/findbyid/${empId}`);
+        setEmployee(result.data);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to fetch employee data!");
+      }
+    };
 
-        setEmployee(result.data)
-    }
+   
 
     return(
 
