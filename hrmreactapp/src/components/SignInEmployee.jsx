@@ -36,7 +36,7 @@ export const SignInEmployee = () => {
           type="password"
           onChange={(e) => setLogin({ ...login, password: e.target.value })}
         />
-        <button className="btn btn-success mt-2 w-100">Sign In</button>
+        <button className="btn btn-danger mt-2 w-100">Sign In</button>
       </form>
     </div>
   );

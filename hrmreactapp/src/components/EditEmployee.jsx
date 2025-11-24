@@ -73,8 +73,9 @@ export const EditEmployee = () => {
                       Salary<input type='text' name='empSalary' value={empSalary} onChange={(e) => onInputChange(e)}/>
                    </div>
 
-                   <div className='mb-3'>
-                      DOB<input type='text' name='empDOB' value={empDOB} onChange={(e) => onInputChange(e)}/>
+                    <div className='mb-3'>
+                   <label htmlFor='empDOB'>DOB</label><br />
+                   <input type='date' id='empDOB' name='empDOB' value={empDOB} onChange={(e) => onInputChange(e)} className='form-control'/>
                    </div>
 
                    <div className='mb-3'>

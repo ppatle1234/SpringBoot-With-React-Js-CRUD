@@ -1,10 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ShowEmployee } from './components/ShowEmployee'
 import { EditEmployee } from './components/EditEmployee'
 import { AddEmployee } from './components/AddEmployee'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { SignUpEmployee } from './components/SignUpEmployee'
 import { SignInEmployee } from './components/SignInEmployee'
 

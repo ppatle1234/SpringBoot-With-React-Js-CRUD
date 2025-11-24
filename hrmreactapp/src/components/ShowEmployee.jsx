@@ -43,12 +43,13 @@ export const ShowEmployee = () => {
     };
 
     return(
-
-        <div className='container'>
+    
+        <div className='container' >
+            <tr> <button onClick={handleSignOut} className='btn btn-warning'>Sign Out</button></tr>
             <div className='row'>
                 
                 <Link to={`/addemployee`} className='btn btn-info'>Add Employee</Link>  
-              <button onClick={handleSignOut} className='btn btn-warning'>Sign Out</button>
+             
             
                 
 
@@ -80,7 +81,9 @@ export const ShowEmployee = () => {
 
                                     <td>
                                         <Link to={`/edit/${emp.empId}`} className='btn btn-success'>Edit</Link>&nbsp; &nbsp; 
-                                        <button className='btn btn-danger' onClick={()=> deleteEmployees(emp.empId)}>Delete</button>
+     
+                                           <button className='btn btn-danger' onClick={()=> deleteEmployees(emp.empId)}>Delete</button>                                              // redirect to signup                                        
+                                      
                                     </td>
                                 </tr>
                             ))

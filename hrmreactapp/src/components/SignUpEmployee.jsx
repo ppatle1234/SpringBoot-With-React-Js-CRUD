@@ -37,7 +37,7 @@ export const SignUpEmployee = () => {
           type="password"
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <button className="btn btn-primary mt-2 w-100">Signup</button>
+        <button className="btn btn-danger mt-2 w-100">Signup</button>
       </form>
     </div>
   );
